@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(cors());
 
 // Dummy APIs for a rummy app
-app.get("/", (req, res) => res.send("Server running"));
+app.get("/", (req, res) => res.send("Server running ✅"));
 
 app.post("/register", (req, res) => res.send("User registered"));
 app.post("/login", (req, res) => res.send("User logged in"));
@@ -23,12 +23,15 @@ app.post("/result", (req, res) => res.send("Result submitted"));
 app.get("/history", (req, res) => res.send("Game history"));
 app.post("/withdraw-request", (req, res) => res.send("Withdraw requested"));
 
-mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/rummy", {
+// Connect to MongoDB Atlas
+mongoose.connect(process.env.MONGO_URL, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 })
 .then(() => {
-  console.log("MongoDB connected");
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  console.log("✅ MongoDB connected");
+  app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
 })
-.catch((err) => console.error("MongoDB connection error:", err));
+.catch((err) => {
+  console.error("❌ MongoDB connection error:", err);
+});
